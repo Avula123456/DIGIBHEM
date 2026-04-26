@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Chatbot</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.chat-container{
+    width:380px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+#chatbox{
+    height:300px;
+    overflow-y:auto;
+    border:1px solid #ddd;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.user{
+    text-align:right;
+    color:blue;
+    margin:5px;
+}
+
+.bot{
+    text-align:left;
+    color:green;
+    margin:5px;
+}
+
+.input-area{
+    display:flex;
+}
+
+input{
+    flex:1;
+    padding:8px;
+}
+
+button{
+    padding:8px;
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+<h2>🤖 AI Chatbot</h2>
+
+<div id="chatbox"></div>
+
+<div class="input-area">
+<input type="text" id="userInput" placeholder="Ask something..." onkeypress="handleKey(event)">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+<script>
+
+function handleKey(e){
+    if(e.key === "Enter"){
+        sendMessage();
+    }
+}
+
+function sendMessage(){
+    let input = document.getElementById("userInput").value.trim();
+    if(input === "") return;
+
+    let chatbox = document.getElementById("chatbox");
+
+    chatbox.innerHTML += `<div class="user">${input}</div>`;
+
+    let response = getBotResponse(input.toLowerCase());
+
+    setTimeout(()=>{
+        chatbox.innerHTML += `<div class="bot">${response}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+    },500);
+
+    document.getElementById("userInput").value="";
+}
+
+function getBotResponse(input){
+
+    if(input.includes("hello") || input.includes("hi"))
+        return "Hello! How can I help you today? 😊";
+
+    else if(input.includes("name"))
+        return "I am an AI Chatbot developed during internship.";
+
+    else if(input.includes("internship"))
+        return "This chatbot project was built as part of my internship.";
+
+    else if(input.includes("ai"))
+        return "Artificial Intelligence enables machines to understand and respond like humans.";
+
+    else if(input.includes("project"))
+        return "This project is a chatbot that can answer basic queries using NLP concepts.";
+
+    else if(input.includes("help"))
+        return "You can ask me about AI, internship, or this project.";
+
+    else if(input.includes("bye"))
+        return "Goodbye! Have a great day 👋";
+
+    else
+        return "Sorry, I didn’t understand that. Try asking something else.";
+}
+
+</script>
+
+</body>
+</html>
